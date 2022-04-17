@@ -22,11 +22,7 @@ public class HomeWorkApp {
     }
 
     private static boolean checkValues(int a, int b) {
-        if ((a + b) >= 10 && (a + b) <= 20) {
-            return true;
-        } else {
-            return false;
-        }
+        return (a + b >= 10 && a + b <= 20);
     }
 
     private static void printPositiveOrNegativeValue(int a) {
