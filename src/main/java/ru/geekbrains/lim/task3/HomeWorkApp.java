@@ -2,22 +2,23 @@ package ru.geekbrains.lim.task3;
 
 import java.util.Arrays;
 import java.util.Random;
-import java.util.stream.IntStream;
+
+import static java.lang.Math.abs;
 
 public class HomeWorkApp {
     public static void main(String[] args) {
-
-       /* reverseNumbersInArray();
+        reverseNumbersInArray();
         fillNumbersInArray();
         doubleValuesInArrayWhichLess6();
         drawXInArray();
         System.out.println(Arrays.toString(initArray(20, 50)));
-        findMinMaxValuesInArray();*/
+        findMinMaxValuesInArray();
         if (checkBalance(new int[]{1, 1, 1, 2, 1})) {
             System.out.println("True");
         } else {
             System.out.println("False");
         }
+        System.out.println(Arrays.toString(shiftValuesInArray(new int[] {1,2, 3,4,5,6,7,8,9}, -9)));
     }
 
     private static int[] initRandomArray(int maxLength, int maxValue) {
@@ -72,9 +73,7 @@ public class HomeWorkApp {
 
     private static int[] initArray(int len, int initialValue) {
         int[] arr = new int[len];
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = initialValue;
-        }
+        Arrays.fill(arr, initialValue);
         return arr;
     }
 
@@ -82,12 +81,12 @@ public class HomeWorkApp {
         int[] arr = initRandomArray(10, 20);
         int minValue = arr[0];
         int maxValue = arr[0];
-        for (int i = 0; i < arr.length; i++) {
-            if (minValue > arr[i]) {
-                minValue = arr[i];
+        for (int curVal : arr) {
+            if (minValue > curVal) {
+                minValue = curVal;
             }
-            if (maxValue < arr[i]) {
-                maxValue = arr[i];
+            if (maxValue < curVal) {
+                maxValue = curVal;
             }
         }
         System.out.println("Значения массива - " + Arrays.toString(arr));
@@ -96,22 +95,42 @@ public class HomeWorkApp {
     }
 
     private static boolean checkBalance(int[] arr) {
-        int firstSum = 0;
+        int leftSum = 0;
         for (int i = 0; i < arr.length; i++) {
-            firstSum += arr[i];
-            if (firstSum == sumOfOtherValuesInArray(i + 1, arr)) {
+            leftSum += arr[i];
+            if (leftSum == sumOfRightValuesInArray(i + 1, arr)) {
                 return true;
             }
         }
         return false;
     }
 
-    private static Integer sumOfOtherValuesInArray(int startIndex, int[] arr) {
+    private static int[] shiftValuesInArray(int[] arr, int shiftNumber) {
+        int currentValue;
+        int previousValue = 0;
+        for (int i = 0; i < abs(shiftNumber); i++) {
+            for (int j = 0; j < arr.length; j++) {
+                currentValue = arr[getIndexInArray(j, shiftNumber, arr.length)];
+                arr[getIndexInArray(j, shiftNumber, arr.length)] = previousValue;
+                previousValue = currentValue;
+            }
+            arr[0] = previousValue;
+        }
+        return arr;
+    }
+
+    private static int getIndexInArray(int j, int shiftNumber, int arrayLength) {
+        if (j > 0 && shiftNumber < 0) {
+            return arrayLength - j;
+        }
+        return j;
+    }
+
+    private static Integer sumOfRightValuesInArray(int startIndex, int[] arr) {
         int result = 0;
         for (int i = startIndex; i < arr.length; i++) {
             result += arr[i];
         }
         return result;
     }
-
 }
