@@ -110,8 +110,8 @@ public class HomeWorkApp {
         int previousValue = 0;
         for (int i = 0; i < abs(shiftNumber); i++) {
             for (int j = 0; j < arr.length; j++) {
-                currentValue = arr[getIndexInArray(j, shiftNumber, arr.length)];
-                arr[getIndexInArray(j, shiftNumber, arr.length)] = previousValue;
+                currentValue = arr[getCurrentIndexOfArray(j, shiftNumber, arr.length)];
+                arr[getCurrentIndexOfArray(j, shiftNumber, arr.length)] = previousValue;
                 previousValue = currentValue;
             }
             arr[0] = previousValue;
@@ -119,7 +119,7 @@ public class HomeWorkApp {
         return arr;
     }
 
-    private static int getIndexInArray(int j, int shiftNumber, int arrayLength) {
+    private static int getCurrentIndexOfArray(int j, int shiftNumber, int arrayLength) {
         if (j > 0 && shiftNumber < 0) {
             return arrayLength - j;
         }
