@@ -10,10 +10,13 @@ public class HomeWorkApp {
         reverseNumbersInArray();
         fillNumbersInArray();
         doubleValuesInArrayWhichLess6();
-        drawXInArray();
+        int [][] arr = drawXInArray(10, 10);
+        for (int[] element: arr) {
+            System.out.println(Arrays.toString(element));
+        }
         System.out.println(Arrays.toString(initArray(20, 50)));
         findMinMaxValuesInArray();
-        if (checkBalance(new int[]{1, 1, 1, 2, 1})) {
+        if (checkBalance(new int[]{1, 2, 3, 6})) {
             System.out.println("True");
         } else {
             System.out.println("False");
@@ -55,20 +58,20 @@ public class HomeWorkApp {
         System.out.println("Значения массива - " + Arrays.toString(arr));
     }
 
-    private static void drawXInArray() {
-        int[][] arr = new int[20][20];
+    private static int[][] drawXInArray(int x, int y) {
+        int[][] arr = new int[x][y];
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[i].length; j++) {
                 if (i == j) {
-                    System.out.printf("%2d", 1);
+                    arr[i][j] = 1;
                 } else if (i == arr.length - j - 1) {
-                    System.out.printf("%2d", 1);
+                    arr[i][j] = 1;
                 } else {
-                    System.out.printf("%2d", 0);
+                    arr[i][j] = 0;
                 }
             }
-            System.out.println();
         }
+        return arr;
     }
 
     private static int[] initArray(int len, int initialValue) {
