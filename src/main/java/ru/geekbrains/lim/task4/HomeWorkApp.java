@@ -10,6 +10,12 @@ public class HomeWorkApp {
     public static final char DOT_EMPTY = '.';
     public static final char DOT_X = 'X';
     public static final char DOT_O = 'O';
+    public static final int UP = 1;
+    public static final int DOWN = -1;
+    public static final int LEFT = -1;
+    public static final int RIGHT = 1;
+    public static final int NO_LEFT_NO_RIGHT = 0;
+    public static final int NO_UP_NO_DOWN = 0;
     public static char[][] map;
     public static Scanner sc = new Scanner(System.in);
     public static Random random = new Random();
@@ -105,14 +111,14 @@ public class HomeWorkApp {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 if (i == 0 || i == SIZE - 1 || j == 0 || j == SIZE - 1) {
-                    if (isLine(i, j, 0, 1, symb) ||
-                            isLine(i, j, 0, -1, symb) ||
-                            isLine(i, j, 1, 0, symb) ||
-                            isLine(i, j, -1, 0, symb) ||
-                            isLine(i, j, 1, 1, symb) ||
-                            isLine(i, j, 1, -1, symb) ||
-                            isLine(i, j, -1, 1, symb) ||
-                            isLine(i, j, -1, -1, symb)
+                    if (isLine(i, j, NO_UP_NO_DOWN, RIGHT, symb) ||
+                            isLine(i, j, NO_UP_NO_DOWN, LEFT, symb) ||
+                            isLine(i, j, UP, NO_LEFT_NO_RIGHT, symb) ||
+                            isLine(i, j, DOWN, NO_LEFT_NO_RIGHT, symb) ||
+                            isLine(i, j, UP, RIGHT, symb) ||
+                            isLine(i, j, UP, LEFT, symb) ||
+                            isLine(i, j, DOWN, RIGHT, symb) ||
+                            isLine(i, j, DOWN, LEFT, symb)
                     ) {
                         return true;
                     }
@@ -126,29 +132,29 @@ public class HomeWorkApp {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 if (i == 0 || i == SIZE - 1 || j == 0 || j == SIZE - 1) {
-                    if (isThreat(i, j, 0, 1)) {
-                        killThreat(i, j, 0, 1);
+                    if (isThreat(i, j, NO_UP_NO_DOWN, RIGHT)) {
+                        killThreat(i, j, NO_UP_NO_DOWN, RIGHT);
                         return true;
-                    } else if (isThreat(i, j, 0, -1)) {
-                        killThreat(i, j, 0, -1);
+                    } else if (isThreat(i, j, NO_UP_NO_DOWN, LEFT)) {
+                        killThreat(i, j, NO_UP_NO_DOWN, LEFT);
                         return true;
-                    } else if (isThreat(i, j, 1, 0)) {
-                        killThreat(i, j, 1, 0);
+                    } else if (isThreat(i, j, UP, NO_LEFT_NO_RIGHT)) {
+                        killThreat(i, j, UP, NO_LEFT_NO_RIGHT);
                         return true;
-                    } else if (isThreat(i, j, -1, 0)) {
-                        killThreat(i, j, -1, 0);
+                    } else if (isThreat(i, j, DOWN, NO_LEFT_NO_RIGHT)) {
+                        killThreat(i, j, DOWN, NO_LEFT_NO_RIGHT);
                         return true;
-                    } else if (isThreat(i, j, 1, 1)) {
-                        killThreat(i, j, 1, 1);
+                    } else if (isThreat(i, j, UP, RIGHT)) {
+                        killThreat(i, j, UP, RIGHT);
                         return true;
-                    } else if (isThreat(i, j, 1, -1)) {
-                        killThreat(i, j, 1, -1);
+                    } else if (isThreat(i, j, UP, LEFT)) {
+                        killThreat(i, j, UP, LEFT);
                         return true;
-                    } else if (isThreat(i, j, -1, 1)) {
-                        killThreat(i, j, -1, 1);
+                    } else if (isThreat(i, j, DOWN, RIGHT)) {
+                        killThreat(i, j, DOWN, RIGHT);
                         return true;
-                    } else if (isThreat(i, j, -1, -1)) {
-                        killThreat(i, j, -1, -1);
+                    } else if (isThreat(i, j, DOWN, LEFT)) {
+                        killThreat(i, j, DOWN, LEFT);
                         return true;
                     }
                 }
