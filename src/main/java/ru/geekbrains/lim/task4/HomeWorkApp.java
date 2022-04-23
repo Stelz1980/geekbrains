@@ -1,5 +1,6 @@
 package ru.geekbrains.lim.task4;
 
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -12,6 +13,7 @@ public class HomeWorkApp {
     public static char[][] map;
     public static Scanner sc = new Scanner(System.in);
     public static Random random = new Random();
+    public static boolean blockUser = false;
 
     private static void initMap() {
         map = new char[SIZE][SIZE];
@@ -38,6 +40,8 @@ public class HomeWorkApp {
     }
 
     public static void main(String[] args) {
+        System.out.println("Включить блокирующий режим? Y/N ");
+        blockUser = sc.nextLine().equals("Y");
         initMap();
         printMap();
         while (true) {
@@ -81,18 +85,20 @@ public class HomeWorkApp {
         }
         if (map[y][x] == DOT_EMPTY) {
             return true;
-        };
+        }
         return false;
     }
 
     private static void aiTurn() {
         int x, y;
-        do {
-            x = random.nextInt(SIZE);
-            y = random.nextInt(SIZE);
-        } while (!isCellValid(x, y));
-        System.out.println("Компьютер походил в точку " + (x + 1) + " " + (y + 1));
-        map[y][x] = DOT_O;
+        if (!(blockUser && closeThreats())) {
+            do {
+                x = random.nextInt(SIZE);
+                y = random.nextInt(SIZE);
+            } while (!isCellValid(x, y));
+            System.out.println("Компьютер походил в точку " + (x + 1) + " " + (y + 1));
+            map[y][x] = DOT_O;
+        }
     }
 
     private static boolean checkWin(char symb) {
@@ -100,10 +106,12 @@ public class HomeWorkApp {
             for (int j = 0; j < SIZE; j++) {
                 if (i == 0 || i == SIZE - 1 || j == 0 || j == SIZE - 1) {
                     if (isLine(i, j, 0, 1, symb) ||
+                            isLine(i, j, 0, -1, symb) ||
                             isLine(i, j, 1, 0, symb) ||
+                            isLine(i, j, -1, 0, symb) ||
                             isLine(i, j, 1, 1, symb) ||
                             isLine(i, j, 1, -1, symb) ||
-                            isLine(i, j, -1, 0, symb) ||
+                            isLine(i, j, -1, 1, symb) ||
                             isLine(i, j, -1, -1, symb)
                     ) {
                         return true;
@@ -112,6 +120,66 @@ public class HomeWorkApp {
             }
         }
         return false;
+    }
+
+    private static boolean closeThreats() {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (i == 0 || i == SIZE - 1 || j == 0 || j == SIZE - 1) {
+                    if (isThreat(i, j, 0, 1)) {
+                        killThreat(i, j, 0, 1);
+                        return true;
+                    } else if (isThreat(i, j, 0, -1)) {
+                        killThreat(i, j, 0, -1);
+                        return true;
+                    } else if (isThreat(i, j, 1, 0)) {
+                        killThreat(i, j, 1, 0);
+                        return true;
+                    } else if (isThreat(i, j, -1, 0)) {
+                        killThreat(i, j, -1, 0);
+                        return true;
+                    } else if (isThreat(i, j, 1, 1)) {
+                        killThreat(i, j, 1, 1);
+                        return true;
+                    } else if (isThreat(i, j, 1, -1)) {
+                        killThreat(i, j, 1, -1);
+                        return true;
+                    } else if (isThreat(i, j, -1, 1)) {
+                        killThreat(i, j, -1, 1);
+                        return true;
+                    } else if (isThreat(i, j, -1, -1)) {
+                        killThreat(i, j, -1, -1);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean isThreat(int x0, int y0, int stepVertical, int stepHorizontal) {
+        int count = 0;
+        for (int i = 0; i < DOT_TO_WIN; i++) {
+            if (isIndexesInArray(y0 + i * stepVertical, x0 + i * stepHorizontal)) {
+                char cellValue = map[y0 + i * stepVertical][x0 + i * stepHorizontal];
+                if (cellValue == DOT_X) {
+                    count++;
+                } else if (cellValue == DOT_O) {
+                    return false;
+                }
+            }
+        }
+        return count == DOT_TO_WIN - 1;
+    }
+
+    private static void killThreat(int x0, int y0, int stepVertical, int stepHorizontal) {
+        for (int i = 0; i < DOT_TO_WIN; i++) {
+            if (map[y0 + i * stepVertical][x0 + i * stepHorizontal] == DOT_EMPTY) {
+                System.out.println("Компьютер походил в блокирующую точку " + (x0 + i * stepHorizontal + 1) + " " + (y0 + i * stepVertical));
+                map[y0 + i * stepVertical][x0 + i * stepHorizontal] = DOT_O;
+                return;
+            }
+        }
     }
 
     private static boolean isLine(int x0, int y0, int stepVertical, int stepHorizontal, char symb) {
@@ -137,4 +205,3 @@ public class HomeWorkApp {
         return true;
     }
 }
-
