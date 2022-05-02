@@ -11,7 +11,6 @@ public class HomeWorkApp {
                 new Cat ("Васька"),
                 new Dog ("Тузик"),
         };
-
         for (Animal animal: animals) {
             animal.run(new Random().nextInt(1000));
             animal.swim(new Random().nextInt(1000));

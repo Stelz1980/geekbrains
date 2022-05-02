@@ -22,5 +22,5 @@ public class HomeWorkApp {
         for (Person person: Arrays.stream(persArray).filter((p)->p.getAge() > 40).collect(Collectors.toList())) {
             person.print();
         }
-    }
+   }
 }

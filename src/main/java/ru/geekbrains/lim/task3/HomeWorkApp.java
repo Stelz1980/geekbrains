@@ -7,7 +7,7 @@ import static java.lang.Math.abs;
 
 public class HomeWorkApp {
     public static void main(String[] args) {
-        reverseNumbersInArray();
+/*        reverseNumbersInArray();
         fillNumbersInArray();
         doubleValuesInArrayWhichLess6();
         int [][] arr = drawXInArray(10, 10);
@@ -21,7 +21,28 @@ public class HomeWorkApp {
         } else {
             System.out.println("False");
         }
-        System.out.println(Arrays.toString(shiftValuesInArray(new int[] {1,2, 3,4,5,6,7,8,9}, -9)));
+        System.out.println(Arrays.toString(shiftValuesInArray(new int[] {1,2, 3,4,5,6,7,8,9}, -9)));*/
+
+        System.out.println(Arrays.toString(moveContent(new int[]{1, 2, 3,4,5 }, 3)));
+    }
+
+
+    public static int[] moveContent(int[] array, int step) {
+        step = step*(-1);
+        if (step < 0) {
+            step = array.length + step;
+        }
+        for (int j = 0; j < step; j++) {
+            for (int i = 0; i < array.length - 1; i++) {
+                array[i] = array[i] + array[i + 1];
+                array[i + 1] = array[i] - array[i + 1];
+                array[i] = array[i] - array[i + 1];
+                System.out.println(Arrays.toString(array));
+            }
+            System.out.println("---------");
+
+        }
+        return array;
     }
 
     private static int[] initRandomArray(int maxLength, int maxValue) {
