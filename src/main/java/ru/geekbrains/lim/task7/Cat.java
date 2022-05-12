@@ -27,4 +27,8 @@ public class Cat {
                 ", isFull=" + isFull +
                 '}';
     }
+
+    public void info(){
+        System.out.println(this);
+    }
 }

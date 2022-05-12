@@ -16,8 +16,9 @@ public class HomeWorkApp {
                       };
         Plate plate = new Plate(10);
         plate.increaseFood(50);
-        Arrays.stream(cats).forEach(p -> System.out.println(p.toString()));
+        Arrays.stream(cats).forEach(p -> p.info());
         Arrays.stream(cats).forEach(p -> p.setFull(p.eat(plate)));
-        Arrays.stream(cats).forEach(p -> System.out.println(p.toString()));
+        Arrays.stream(cats).forEach(p -> p.info());
+        plate.info();
     }
 }
