@@ -11,8 +11,8 @@ public class Cat {
         this.isFull = false;
     }
 
-    public void setFull(boolean full) {
-        isFull = full;
+    public void setFull(boolean isFull) {
+        this.isFull = isFull;
     }
 
     public boolean eat(Plate plate) {
