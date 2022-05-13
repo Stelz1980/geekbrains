@@ -28,7 +28,7 @@ public class Cat {
                 '}';
     }
 
-    public void info(){
+    public void info() {
         System.out.println(this);
     }
 }
