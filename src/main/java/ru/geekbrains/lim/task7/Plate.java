@@ -11,15 +11,16 @@ public class Plate {
         if (this.food >= n) {
             this.food -= n;
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
-    public void increaseFood(int n) {
+    public boolean increaseFood(int n) {
         if (n > 0) {
             this.food += n;
+            return true;
         }
+        return false;
     }
 
     public void info() {
