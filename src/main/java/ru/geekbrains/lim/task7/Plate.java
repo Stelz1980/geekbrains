@@ -8,8 +8,8 @@ public class Plate {
     }
 
     public boolean decreaseFood(int n) {
-        if (food >= n) {
-            food -= n;
+        if (this.food >= n) {
+            this.food -= n;
             return true;
         } else {
             return false;
@@ -18,7 +18,7 @@ public class Plate {
 
     public void increaseFood(int n) {
         if (n > 0) {
-            food += n;
+            this.food += n;
         }
     }
 
