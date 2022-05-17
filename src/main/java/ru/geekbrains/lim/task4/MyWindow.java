@@ -111,33 +111,27 @@ public class MyWindow extends JFrame {
     }
 
     private boolean checkFull() {
-        System.out.println(" ->проверка на полноту ");
-         for (int i = 0; i < SIZE; i++) {
+        for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                System.out.println( i + " " + j + buttons[i][j].getText());
-                if (buttons[i][j].getText().equals(DOT_EMPTY))
-                    System.out.println( i + " " + j + buttons[i][j].getText());
+                if (buttons[i][j].getText().equals(DOT_EMPTY)) {
                     return false;
+                }
             }
         }
-        System.out.println(" ->все поное ");
         return true;
     }
 
     private static void aiTurn() {
         int x, y;
         Random random = new Random();
-
         if (!(blockUser && closeThreats())) {
             do {
-                //System.out.println("залетели в AI");
                 x = random.nextInt(SIZE);
                 y = random.nextInt(SIZE);
-                //System.out.println(x + " " + y);
             } while (!isCellValid(x, y));
-
             buttons[y][x].setText(DOT_O);
-             }
+            System.out.println("Компьютер походил в точку " + y + " " + x);
+        }
     }
 
     private static boolean isCellValid(int x, int y) {
@@ -209,8 +203,6 @@ public class MyWindow extends JFrame {
             }
         }
         return false;
-
-
     }
 
     private static boolean isThreat(int x0, int y0, int stepVertical, int stepHorizontal) {
@@ -233,6 +225,7 @@ public class MyWindow extends JFrame {
             if (isIndexesInArray(y0 + i * stepVertical, x0 + i * stepHorizontal)) {
                 if (buttons[y0 + i * stepVertical][x0 + i * stepHorizontal].getText().equals(DOT_EMPTY)) {
                     statusLBL.setText("Компьютер походил в блокирующую точку " + (x0 + i * stepHorizontal + 1) + " " + (y0 + i * stepVertical + 1));
+                    System.out.println("Компьютер походил в блокирующую точку " + (x0 + i * stepHorizontal + 1) + " " + (y0 + i * stepVertical + 1));
                     buttons[y0 + i * stepVertical][x0 + i * stepHorizontal].setText(DOT_O);
                     return;
                 }
