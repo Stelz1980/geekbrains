@@ -46,10 +46,12 @@ public class HomeWorkApp {
     }
 
     public static void main(String[] args) {
-        System.out.println("Включить блокирующий режим? Y/N ");
+       new MyWindow();
+        /*System.out.println("Включить блокирующий режим? Y/N ");
         blockUser = sc.nextLine().equals("Y");
         initMap();
         printMap();
+        new MyWindow();
         while (true) {
             humanTurn();
             printMap();
@@ -71,7 +73,7 @@ public class HomeWorkApp {
                 System.out.println("Ничья");
                 break;
             }
-        }
+        }*/
         System.out.println("Game over");
     }
 
