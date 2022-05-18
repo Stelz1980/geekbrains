@@ -11,6 +11,8 @@ public class HomeWorkApp {
                 new Cat ("Васька"),
                 new Dog ("Тузик"),
         };
+
+
         for (Animal animal: animals) {
             animal.run(new Random().nextInt(1000));
             animal.swim(new Random().nextInt(1000));
@@ -19,5 +21,7 @@ public class HomeWorkApp {
         System.out.println("из них:");
         System.out.println("Собак у нас - " + Dog.getCount());
         System.out.println("Котов у нас - " + Cat.getCount());
+
+
     }
 }
