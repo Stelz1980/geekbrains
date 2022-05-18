@@ -9,6 +9,9 @@ public class MyWindow extends JFrame {
     private static final int SIZE = 3;
     private static final int DOTS_TO_WIN = 3;
     private static final String GAME_NAME = "Крестики - нолики";
+    private static final String HUMAN_WIN = "Победил человек.Game Over";
+    private static final String AI_WIN = "Пoбедил AI.Game Over";
+    private static final String DRAW_WIN = "Ничья.Game Over";
     private static final String DOT_EMPTY = String.valueOf('.');
     private static final String DOT_X = String.valueOf('X');
     private static final String DOT_O = String.valueOf('O');
@@ -52,7 +55,7 @@ public class MyWindow extends JFrame {
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[0].length; j++) {
                 buttons[i][j] = new JButton();
-                buttons[i][j].setFont(new Font("Serif", Font.PLAIN, 20));
+                buttons[i][j].setFont(new Font("Serif", Font.BOLD, 20));
                 panel.add(buttons[i][j]);
             }
         }
@@ -79,29 +82,30 @@ public class MyWindow extends JFrame {
     private void startGame() {
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[0].length; j++) {
-                JButton button = buttons[i][j];
-                button.addActionListener(e -> {
-                    if (DOT_EMPTY.equals(button.getText())) {
-                        button.setText(DOT_X);
+                int currentI = i;
+                int currentJ = j;
+                buttons[currentI][currentJ].addActionListener(e -> {
+                    if (DOT_EMPTY.equals(buttons[currentI][currentJ].getText())) {
+                        buttons[currentI][currentJ].setText(DOT_X);
                         if (checkWin(DOT_X)) {
                             disableButtons();
-                            statusLBL.setText("Победил человек.Game Over");
+                            statusLBL.setText(HUMAN_WIN);
                             return;
                         }
                         if (checkFull()) {
                             disableButtons();
-                            statusLBL.setText("Ничья.Game Over");
+                            statusLBL.setText(DRAW_WIN);
                             return;
                         }
                         aiTurn();
                         if (checkWin(DOT_O)) {
                             disableButtons();
-                            statusLBL.setText("Победил компьютер.Game Over");
+                            statusLBL.setText(AI_WIN);
                             return;
                         }
                         if (checkFull()) {
                             disableButtons();
-                            statusLBL.setText("Ничья.Game Over");
+                            statusLBL.setText(DRAW_WIN);
                             return;
                         }
                     }
@@ -130,7 +134,6 @@ public class MyWindow extends JFrame {
                 y = random.nextInt(SIZE);
             } while (!isCellValid(x, y));
             buttons[y][x].setText(DOT_O);
-            System.out.println("Компьютер походил в точку " + y + " " + x);
         }
     }
 
@@ -215,6 +218,8 @@ public class MyWindow extends JFrame {
                 } else if (cellValue.equals(DOT_O)) {
                     return false;
                 }
+            } else {
+                return false;
             }
         }
         return count == DOTS_TO_WIN - 1;
@@ -224,8 +229,7 @@ public class MyWindow extends JFrame {
         for (int i = 0; i < DOTS_TO_WIN; i++) {
             if (isIndexesInArray(y0 + i * stepVertical, x0 + i * stepHorizontal)) {
                 if (buttons[y0 + i * stepVertical][x0 + i * stepHorizontal].getText().equals(DOT_EMPTY)) {
-                    statusLBL.setText("Компьютер походил в блокирующую точку " + (x0 + i * stepHorizontal + 1) + " " + (y0 + i * stepVertical + 1));
-                    System.out.println("Компьютер походил в блокирующую точку " + (x0 + i * stepHorizontal + 1) + " " + (y0 + i * stepVertical + 1));
+                    statusLBL.setText("Компьютер походил в блокирующую точку " + (x0 + i * stepHorizontal) + " " + (y0 + i * stepVertical));
                     buttons[y0 + i * stepVertical][x0 + i * stepHorizontal].setText(DOT_O);
                     return;
                 }
